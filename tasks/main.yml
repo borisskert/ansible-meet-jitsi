@@ -1,6 +1,9 @@
 ---
 - include: check-parameters.yml
-- include: template_compose_file.yml
+- include: create_compose_file.yml
+- include: template-env-config.yml
+- include: create-volume-directories.yml
+- include: register-users.yml
 
 - name: Create systemd unit file
   template:
@@ -15,9 +18,14 @@
   command: systemctl daemon-reload
   when: systemd_unitfile.changed
 
-- name: Restart service
+- name: Restart service (by config change)
   service:
     name: "{{service_name}}"
     state: restarted
     enabled: yes
-  when: docker_compose_file.changed or docker_compose_env_file.changed or systemd_unitfile.changed
+  when: docker_compose_file.changed or env_file.changed or systemd_unitfile.changed or account_files.changed
+
+- name: Start service (if it's not already started)
+  service:
+    name: "{{service_name}}"
+    state: started

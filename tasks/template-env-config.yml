@@ -1,0 +1,41 @@
+---
+- name: Copy gen_password.sh script
+  copy:
+    src: files/gen_passwords.sh
+    dest: "{{docker_compose.path}}/gen_passwords.sh"
+    owner: root
+    group: root
+    mode: '0550'
+  register: gen_passwords_script
+
+- name: create env template
+  template:
+    src: ./.env.j2
+    dest: "{{docker_compose.path}}/.env-template"
+    owner: root
+    group: root
+    mode: '0640'
+  register: env_template
+
+- name: Check if env file exists
+  stat:
+    path: "{{docker_compose.path}}/.env"
+  register: env_file_result
+
+- name: create env file
+  copy:
+    src: "{{docker_compose.path}}/.env-template"
+    remote_src: yes
+    dest: "{{docker_compose.path}}/.env"
+    owner: root
+    group: root
+    mode: '0640'
+  register: env_file
+  when: not env_file_result.stat.exists or env_template.changed
+
+- name: Generate passwords
+  shell: "{{docker_compose.path}}/gen_passwords.sh"
+  args:
+    chdir: "{{docker_compose.path}}/"
+  when: env_file.changed or gen_passwords_script.changed
+  register: gen_passwords

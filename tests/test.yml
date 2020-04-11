@@ -25,15 +25,14 @@
 
     - role: ansible-jitsi
       volume: /srv/docker/jitsi
+      force: no
       publish:
         web: 10080
         https: 10443
         interface: "{{docker_network_interface}}"
-        url: 'https://meet.my.jitsi'
-      secrets:
-        JICOFO_COMPONENT_SECRET: 'a7168e60f7ad7b70e3d0adeb6117f01d'
-        JICOFO_AUTH_PASSWORD: '60f25389148e39454005164ca68b1966'
-        JVB_AUTH_PASSWORD: '0e605dfa3fd721254de632939130c97f'
-        JIGASI_XMPP_PASSWORD: '48ac76e68f5782dcc0f06a1acae517b4'
-        JIBRI_RECORDER_PASSWORD: 'a42916cd92db0593865de7dcfcfd2bf8'
-        JIBRI_XMPP_PASSWORD: 'eaf7b01048f643a59e4ff25e24baaee6'
+        url: 'http://192.168.33.10:10080'
+      users:
+        - username: myuser
+          password: mypassword
+        - username: myuser2
+          password: mypassword2

@@ -2,6 +2,8 @@
 
 Installs jitsi via several docker container.
 
+This role bases on [docker-jitsi-meet@github](https://github.com/jitsi/docker-jitsi-meet)
+
 Tested on:
 * Ubuntu 16.04
 
@@ -27,11 +29,22 @@ Tested on:
 
 | Variable      | Type | Mandatory? | Default | Description           |
 |---------------|------|------------|---------|-----------------------|
-| volume  | text   | no       | <empty>  | Local path to jitsi config and data |
-| publish.web     | text | no | <empty> | Web Port to be published                     |
-| publish.https     | text | no | <empty> | Https Port to be published (but not used)                    |
-| publish.interface | text | no | 0.0.0.0 | Interface to be published               |
-| secrets | object | yes | <empty> | Secret keys and passwords used by the containers |
+| volume        | text | no         | <empty> | Local path to jitsi config and data |
+| publish.web   | text | no         | <empty> | Web Port to be published            |
+| publish.https | text | no         | <empty> | Https Port to be published (but not used) |
+| publish.interface | text | no     | 0.0.0.0 | Interface to be published                 |
+| publish.url       | text | yes    | <empty> | Public url                                |
+| users             | array of User | yes | [] | User configuration                       |
+| force             | boolean       | no  | no | Force to re-create volumes and configuration |
+
+### User type definition
+
+| Property      | Type | Mandatory? | Default | Description           |
+|---------------|------|------------|---------|-----------------------|
+| username      | text | yes        | <empty> | The user's username   |
+| password      | text | yes        | <empty> | The user's password (in clear text!) |
+
+Please notice: prosody is saving your passwords in clear text! Be aware using generated passwords or similar.
 
 ## Usage
 
@@ -50,18 +63,17 @@ Usage
 ```yaml
     - role: install-jitsi
       volume: /srv/docker/jitsi
+      force: no
       publish:
         web: 10080
         https: 10443
         interface: "{{docker_network_interface}}"
         url: 'https://meet.my.jitsi'
-      secrets: # you can generate them randomly
-        JICOFO_COMPONENT_SECRET: 'my secret 1'
-        JICOFO_AUTH_PASSWORD: 'my secret 2'
-        JVB_AUTH_PASSWORD: 'my secret 3'
-        JIGASI_XMPP_PASSWORD: 'my secret 4'
-        JIBRI_RECORDER_PASSWORD: 'my secret 5'
-        JIBRI_XMPP_PASSWORD: 'my secret 6'
+      users:
+        - username: myuser
+          password: mypassword
+        - username: myuser2
+          password: mypassword2
 ```
 
 # Test this role

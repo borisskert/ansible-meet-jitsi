@@ -13,14 +13,5 @@
     dest: "{{docker_compose.path}}/{{docker_compose.filename}}"
     owner: root
     group: root
-    mode: '0554'
+    mode: '0664'
   register: docker_compose_file
-
-- name: template env file
-  template:
-    src: ./.env.j2
-    dest: "{{docker_compose.path}}/.env"
-    owner: root
-    group: root
-    mode: '0554'
-  register: docker_compose_env_file

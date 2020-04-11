@@ -29,13 +29,17 @@
       - "publish.url != ''"
     fail_msg: "parameter 'publish.url' incorrect or missing"
 
-- name: check 'secrets' parameter
+- name: check 'users' parameter
   assert:
     that:
-      - "secrets.JICOFO_COMPONENT_SECRET != ''"
-      - "secrets.JICOFO_AUTH_PASSWORD != ''"
-      - "secrets.JVB_AUTH_PASSWORD != ''"
-      - "secrets.JIGASI_XMPP_PASSWORD != ''"
-      - "secrets.JIBRI_RECORDER_PASSWORD != ''"
-      - "secrets.JIBRI_XMPP_PASSWORD != ''"
-    fail_msg: "parameter 'secrets' incorrect or missing"
+      - "users != ''"
+      - "users | length != 0"
+    fail_msg: "parameter 'users' is empty"
+
+- name: check user structure in 'users' parameter
+  assert:
+    that:
+      - "item.username != ''"
+      - "item.password != ''"
+    fail_msg: "item in the parameter 'users' is invalid"
+  with_items: "{{users}}"
