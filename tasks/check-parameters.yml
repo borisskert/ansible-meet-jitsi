@@ -1,0 +1,41 @@
+---
+- name: check 'volume' parameter
+  assert:
+    that:
+      - "volume != ''"
+    fail_msg: "parameter 'volume' incorrect or missing"
+
+- name: check 'publish.web' parameter
+  assert:
+    that:
+      - "publish.web != ''"
+    fail_msg: "parameter 'publish.web' incorrect or missing"
+
+- name: check 'publish.https' parameter
+  assert:
+    that:
+      - "publish.https != ''"
+    fail_msg: "parameter 'publish.https' incorrect or missing"
+
+- name: check 'publish.interface' parameter
+  assert:
+    that:
+      - "publish.interface != ''"
+    fail_msg: "parameter 'publish.interface' incorrect or missing"
+
+- name: check 'publish.url' parameter
+  assert:
+    that:
+      - "publish.url != ''"
+    fail_msg: "parameter 'publish.url' incorrect or missing"
+
+- name: check 'secrets' parameter
+  assert:
+    that:
+      - "secrets.JICOFO_COMPONENT_SECRET != ''"
+      - "secrets.JICOFO_AUTH_PASSWORD != ''"
+      - "secrets.JVB_AUTH_PASSWORD != ''"
+      - "secrets.JIGASI_XMPP_PASSWORD != ''"
+      - "secrets.JIBRI_RECORDER_PASSWORD != ''"
+      - "secrets.JIBRI_XMPP_PASSWORD != ''"
+    fail_msg: "parameter 'secrets' incorrect or missing"

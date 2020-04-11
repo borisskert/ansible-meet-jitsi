@@ -1,0 +1,18 @@
+---
+volume: ''
+
+publish:
+  interface: 0.0.0.0
+  web: '' # Web Port
+  https: '' # Https port (not really used, but used)
+  url: '' # Public url
+
+tz: Europe/Berlin
+
+secrets:
+  JICOFO_COMPONENT_SECRET: ''
+  JICOFO_AUTH_PASSWORD: ''
+  JVB_AUTH_PASSWORD: ''
+  JIGASI_XMPP_PASSWORD: ''
+  JIBRI_RECORDER_PASSWORD: ''
+  JIBRI_XMPP_PASSWORD: ''
