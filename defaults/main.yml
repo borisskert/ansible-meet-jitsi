@@ -11,4 +11,7 @@ tz: Europe/Berlin
 
 users: []
 
+enable_auth: yes
+allow_guests: no
+
 force: no

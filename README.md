@@ -35,6 +35,8 @@ Tested on:
 | publish.interface | text | no     | 0.0.0.0 | Interface to be published                 |
 | publish.url       | text | yes    | <empty> | Public url                                |
 | users             | array of User | yes | [] | User configuration                       |
+| enable_auth       | boolean | no  | yes      | Enables authentication (enabled by default) |
+| allow_guests      | boolean | no  | no       | Enables guests (disabled by default)        |
 | force             | boolean       | no  | no | Force to re-create volumes and configuration |
 
 ### User type definition
@@ -63,17 +65,19 @@ Usage
 ```yaml
     - role: install-jitsi
       volume: /srv/docker/jitsi
-      force: no
       publish:
         web: 10080
         https: 10443
         interface: "{{docker_network_interface}}"
         url: 'https://meet.my.jitsi'
+      enable_auth: yes
+      allow_guests: no
       users:
         - username: myuser
           password: mypassword
         - username: myuser2
           password: mypassword2
+      force: no
 ```
 
 # Test this role

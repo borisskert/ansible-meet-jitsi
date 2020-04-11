@@ -25,14 +25,16 @@
 
     - role: ansible-jitsi
       volume: /srv/docker/jitsi
-      force: no
       publish:
         web: 10080
         https: 10443
         interface: "{{docker_network_interface}}"
         url: 'http://192.168.33.10:10080'
+      enable_auth: yes
+      allow_guests: yes
       users:
         - username: myuser
           password: mypassword
         - username: myuser2
           password: mypassword2
+      force: no
