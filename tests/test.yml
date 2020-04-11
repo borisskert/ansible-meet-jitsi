@@ -2,9 +2,6 @@
 - hosts: test_machine
   become: yes
 
-- hosts: test_machine
-  become: yes
-
   vars:
     docker_volumes: /srv/docker
     docker_network_interface: 172.17.0.1
