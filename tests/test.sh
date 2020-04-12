@@ -16,3 +16,5 @@ curl -s http://192.168.33.10:10080 \
  | grep -q '</html>' \
   && (echo 'curl test: pass' && exit 0) \
   || (echo 'curl test: fail' && exit 1)
+
+vagrant destroy -f

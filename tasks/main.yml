@@ -11,7 +11,7 @@
     dest: "/etc/systemd/system/{{service_name}}.service"
     owner: root
     group: root
-    mode: 0554
+    mode: 0644
   register: systemd_unitfile
 
 - name: Reload systemd
