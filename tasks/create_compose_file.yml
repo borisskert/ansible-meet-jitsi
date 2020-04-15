@@ -7,11 +7,11 @@
     group: root
     mode: '0775'
 
-- name: Copy docker-compose file
-  copy:
-    src: files/docker-compose.yml
+- name: template docker-compose file
+  template:
+    src: docker-compose.yml.j2
     dest: "{{docker_compose.path}}/{{docker_compose.filename}}"
     owner: root
     group: root
-    mode: '0664'
+    mode: '0644'
   register: docker_compose_file

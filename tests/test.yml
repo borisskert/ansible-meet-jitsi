@@ -2,17 +2,6 @@
 - hosts: test_machine
   become: yes
 
-  vars:
-    docker_volumes: /srv/docker
-    docker_network_interface: 172.17.0.1
-
-  pre_tasks:
-    - apt:
-        name: python3-pip
-        update_cache: yes
-    - pip:
-        name: docker
-
   roles:
     - role: install-docker
       storage_driver: overlay2
@@ -25,7 +14,7 @@
       publish:
         web: 10080
         https: 10443
-        interface: "{{docker_network_interface}}"
+        interface: 0.0.0.0
         url: 'http://192.168.33.10:10080'
       enable_auth: yes
       allow_guests: yes
