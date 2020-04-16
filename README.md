@@ -32,12 +32,13 @@ Tested on:
 | volume        | text | no         | <empty> | Local path to jitsi config and data |
 | publish.web   | text | no         | <empty> | Web Port to be published            |
 | publish.https | text | no         | <empty> | Https Port to be published (but not used) |
-| publish.interface | text | no     | 0.0.0.0 | Interface to be published                 |
-| publish.url       | text | yes    | <empty> | Public url                                |
-| users             | array of User | yes | [] | User configuration                       |
-| enable_auth       | boolean | no  | yes      | Enables authentication (enabled by default) |
-| allow_guests      | boolean | no  | no       | Enables guests (disabled by default)        |
-| force             | boolean       | no  | no | Force to re-create volumes and configuration |
+| publish.web_interface | text | no     | 0.0.0.0 | Web interface to be published                 |
+| publish.videobridge_interface | text | no     | 0.0.0.0 | Videobridge interface to be published     |
+| publish.url                   | text | yes    | <empty> | Public url                                |
+| users                         | array of User | yes | [] | User configuration                       |
+| enable_auth                   | boolean | no  | yes      | Enables authentication (enabled by default)  |
+| allow_guests                  | boolean | no  | no       | Enables guests (disabled by default)         |
+| force                         | boolean       | no  | no | Force to re-create volumes and configuration |
 
 ### User type definition
 
@@ -68,7 +69,8 @@ Usage
       publish:
         web: 10080
         https: 10443
-        interface: "{{docker_network_interface}}"
+        web_interface: "{{docker_network_interface}}"
+        videobridge_interface: 0.0.0.0
         url: 'https://meet.my.jitsi'
       enable_auth: yes
       allow_guests: no

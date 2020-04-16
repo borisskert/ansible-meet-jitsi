@@ -17,11 +17,17 @@
       - "publish.https != ''"
     fail_msg: "parameter 'publish.https' incorrect or missing"
 
-- name: check 'publish.interface' parameter
+- name: check 'publish.web_interface' parameter
   assert:
     that:
-      - "publish.interface != ''"
-    fail_msg: "parameter 'publish.interface' incorrect or missing"
+      - "publish.web_interface != ''"
+    fail_msg: "parameter 'publish.web_interface' incorrect or missing"
+
+- name: check 'publish.videobridge_interface' parameter
+  assert:
+    that:
+      - "publish.videobridge_interface != ''"
+    fail_msg: "parameter 'publish.videobridge_interface' incorrect or missing"
 
 - name: check 'publish.url' parameter
   assert:

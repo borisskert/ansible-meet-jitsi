@@ -2,7 +2,8 @@
 volume: ''
 
 publish:
-  interface: 0.0.0.0
+  web_interface: 0.0.0.0
+  videobridge_interface: 0.0.0.0
   web: '' # Web Port
   https: '' # Https port (not really used, but used)
   url: '' # Public url

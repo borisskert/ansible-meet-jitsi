@@ -17,7 +17,12 @@ ansible-playbook -i inventory.ini test.yml \
   && (echo 'Idempotence test: pass' && exit 0) \
   || (echo 'Idempotence test: fail' && exit 1)
 
-(nc -z -w300 192.168.33.10 10080) && \
+echo "Waiting for answer from jitsi..."
+while ! timeout 1 nc -z 192.168.33.10 10080; do
+  sleep 0.2
+done
+
+(nc -z 192.168.33.10 10080) && \
 (echo 'Netcat test: pass' && exit 0) \
 || (echo 'Netcat test: fail' && exit 1)
 

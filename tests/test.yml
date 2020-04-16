@@ -14,7 +14,8 @@
       publish:
         web: 10080
         https: 10443
-        interface: 0.0.0.0
+        web_interface: 0.0.0.0
+        videobridge_interface: 0.0.0.0
         url: 'http://192.168.33.10:10080'
       enable_auth: yes
       allow_guests: yes
