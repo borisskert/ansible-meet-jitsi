@@ -6,6 +6,7 @@ This role bases on [docker-jitsi-meet@github](https://github.com/jitsi/docker-ji
 
 Tested on:
 * Ubuntu 16.04
+* Ubuntu 18.04
 
 ## System requirements
 
@@ -82,7 +83,7 @@ Usage
       force: no
 ```
 
-# Test this role
+## Test this role
 
 Requirements:
 
@@ -94,3 +95,8 @@ Requirements:
 $ cd tests
 $ ./test.sh
 ```
+
+## Links
+
+* [docker-jitsi-meet@github](https://github.com/jitsi/docker-jitsi-meet)
+* [Official Jitsi meet](https://meet.jit.si)
