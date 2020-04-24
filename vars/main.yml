@@ -1,6 +1,4 @@
 ---
-service_name: jitsi
-
 docker:
   workingdir: "/opt/{{service_name}}/docker"
   compose_executible: /usr/local/bin/docker-compose
