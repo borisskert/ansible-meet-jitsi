@@ -12,9 +12,23 @@ tz: Europe/Berlin
 
 users: []
 
-enable_auth: yes
+enable_auth: no
 allow_guests: no
 
 force: no
 
 service_name: jitsi
+
+#-----------------------------------------------------------------------------------------------------------------------
+# Docker properties
+#-----------------------------------------------------------------------------------------------------------------------
+images_version: latest
+force_pull: no
+
+docker:
+  workingdir: "/opt/{{service_name}}/docker"
+  compose_executible: /usr/local/bin/docker-compose
+
+docker_compose:
+  path: "{{docker.workingdir}}/compose"
+  filename: docker-compose.yml

@@ -6,17 +6,19 @@
     - role: install-docker
       storage_driver: overlay2
       cleanup_enabled: true
+      install_pip_docker: yes
 
     - role: install-docker-compose
 
     - role: ansible-jitsi
       volume: /srv/docker/jitsi
+      images_version: stable-4548-1
       publish:
         web: 10080
         https: 10443
         web_interface: 0.0.0.0
         videobridge_interface: 0.0.0.0
-        url: 'http://192.168.33.10:10080'
+        url: http://192.168.33.10:10080
       enable_auth: yes
       allow_guests: yes
       users:

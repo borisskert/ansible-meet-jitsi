@@ -1,0 +1,32 @@
+---
+- name: pull jitsi/web image
+  docker_image:
+    name: "jitsi/web:{{images_version}}"
+    source: pull
+    state: present
+    force_source: "{{force_pull}}"
+  register: web_dockerimage
+
+- name: pull jitsi/prosody image
+  docker_image:
+    name: "jitsi/prosody:{{images_version}}"
+    source: pull
+    state: present
+    force_source: "{{force_pull}}"
+  register: prosody_dockerimage
+
+- name: pull jitsi/jicofo image
+  docker_image:
+    name: "jitsi/jicofo:{{images_version}}"
+    source: pull
+    state: present
+    force_source: "{{force_pull}}"
+  register: jicofo_dockerimage
+
+- name: pull jitsi/jvb image
+  docker_image:
+    name: "jitsi/jvb:{{images_version}}"
+    source: pull
+    state: present
+    force_source: "{{force_pull}}"
+  register: jvb_dockerimage

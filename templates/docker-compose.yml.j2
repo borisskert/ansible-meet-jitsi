@@ -5,7 +5,7 @@ version: '3'
 services:
     # Frontend
     web:
-        image: jitsi/web
+        image: jitsi/web:{{images_version}}
         ports:
             - '{{publish.web_interface}}:${HTTP_PORT}:80'
             - '{{publish.web_interface}}:${HTTPS_PORT}:443'
@@ -46,7 +46,7 @@ services:
 
     # XMPP server
     prosody:
-        image: jitsi/prosody
+        image: jitsi/prosody:{{images_version}}
         expose:
             - '5222'
             - '5347'
@@ -109,7 +109,7 @@ services:
 
     # Focus component
     jicofo:
-        image: jitsi/jicofo
+        image: jitsi/jicofo:{{images_version}}
         volumes:
             - ${CONFIG}/jicofo:/config
         environment:
@@ -135,7 +135,7 @@ services:
 
     # Video bridge
     jvb:
-        image: jitsi/jvb
+        image: jitsi/jvb:{{images_version}}
         ports:
             - '{{publish.videobridge_interface}}:${JVB_PORT}:${JVB_PORT}/udp'
             - '{{publish.videobridge_interface}}:${JVB_TCP_PORT}:${JVB_TCP_PORT}'

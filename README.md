@@ -37,9 +37,11 @@ Tested on:
 | publish.videobridge_interface | text | no     | 0.0.0.0 | Videobridge interface to be published     |
 | publish.url                   | text | yes    | <empty> | Public url                                |
 | users                         | array of User | yes | [] | User configuration                       |
-| enable_auth                   | boolean | no  | yes      | Enables authentication (enabled by default)  |
+| enable_auth                   | boolean | no  | no       | Enables authentication (enabled by default)  |
 | allow_guests                  | boolean | no  | no       | Enables guests (disabled by default)         |
 | force                         | boolean       | no  | no | Force to re-create volumes and configuration |
+| images_version                | text          | no  | latest | Specifies the docker images version      |
+| force_pull                    | boolean       | no  | no     | Forces the re-pull of the docker images  |
 
 ### User type definition
 
@@ -52,7 +54,7 @@ Please notice: prosody is saving your passwords in clear text! Be aware using ge
 
 ## Usage
 
-### requirements.yml
+### Add to `requirements.yml`
 
 ```yaml
 - name: install-jitsi
@@ -60,19 +62,35 @@ Please notice: prosody is saving your passwords in clear text! Be aware using ge
   scm: git
 ```
 
-### Example Playbook
-
-Usage
+### Minimal `playbook.yml`
 
 ```yaml
+- hosts: test_machine
+  become: yes
+
+  roles:
     - role: install-jitsi
       volume: /srv/docker/jitsi
       publish:
         web: 10080
         https: 10443
+        web_interface: 0.0.0.0
+        videobridge_interface: 0.0.0.0
+        url: http://192.168.33.10:10080
+```
+
+### Typical `playbook.yml`
+
+```yaml
+    - role: install-jitsi
+      volume: /srv/docker/jitsi
+      images_version: stable-4548-1
+      publish:
+        web: 10080
+        https: 10443
         web_interface: "{{docker_network_interface}}"
         videobridge_interface: 0.0.0.0
-        url: 'https://meet.my.jitsi'
+        url: https://meet.my.jitsi
       enable_auth: yes
       allow_guests: no
       users:

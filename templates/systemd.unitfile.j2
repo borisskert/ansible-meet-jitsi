@@ -7,17 +7,22 @@ After       = docker.service
 Requires    = docker.service
 
 [Service]
-ExecStartPre = -{{docker.compose_executible}} --project-directory {{docker_compose.path}} \
+ExecStartPre=-{{docker.compose_executible}} --project-directory {{docker_compose.path}} \
                                --file {{docker_compose.path}}/{{docker_compose.filename}} \
                                --project-name {{service_name}} \
                                down --remove-orphans
 
-ExecStart = {{docker.compose_executible}} --project-directory {{docker_compose.path}} \
+ExecStartPre={{docker.compose_executible}} --project-directory {{docker_compose.path}} \
+                            --file {{docker_compose.path}}/{{docker_compose.filename}} \
+                            --project-name {{service_name}} \
+                            pull
+
+ExecStart={{docker.compose_executible}} --project-directory {{docker_compose.path}} \
                            --file {{docker_compose.path}}/{{docker_compose.filename}} \
                            --project-name {{service_name}} \
                            up
 
-ExecStop  = -{{docker.compose_executible}} --project-directory {{docker_compose.path}} \
+ExecStop=-{{docker.compose_executible}} --project-directory {{docker_compose.path}} \
                                             --file {{docker_compose.path}}/{{docker_compose.filename}} \
                                             --project-name {{service_name}} \
                                             down --remove-orphans
