@@ -1,17 +1,17 @@
 ---
 - name: create dockercompose directory
   file:
-    path: "{{docker_compose.path}}"
+    path: "{{ docker_compose.path }}"
     state: directory
     owner: root
     group: root
-    mode: '0775'
+    mode: 0775
 
 - name: template docker-compose file
   template:
     src: docker-compose.yml.j2
-    dest: "{{docker_compose.path}}/{{docker_compose.filename}}"
+    dest: "{{ docker_compose.path }}/{{ docker_compose.filename }}"
     owner: root
     group: root
-    mode: '0644'
-  register: docker_compose_file
+    mode: 0644
+  notify: Restart jitsi meet service

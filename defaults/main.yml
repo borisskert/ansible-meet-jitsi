@@ -4,26 +4,26 @@ volume: ''
 publish:
   web_interface: 0.0.0.0
   videobridge_interface: 0.0.0.0
-  web: '' # Web Port
-  https: '' # Https port (not really used, but used)
-  url: '' # Public url
+  web: ''  # Web Port
+  https: ''  # Https port (not really used, but used)
+  url: ''  # Public url
 
 tz: Europe/Berlin
 
 users: []
 
-enable_auth: no
-allow_guests: no
+enable_auth: false
+allow_guests: false
 
-force: no
+force: false
 
 service_name: jitsi
 
-#-----------------------------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------------------------------------
 # Docker properties
-#-----------------------------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------------------------------------
 images_version: latest
-force_pull: no
+force_pull: false
 
 docker:
   workingdir: "/opt/{{service_name}}/docker"

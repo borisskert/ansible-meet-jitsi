@@ -1,22 +1,24 @@
 ---
-- name: delete account folder # if config needs to be rewritten because of config change
+# if config needs to be rewritten because of config change
+- name: delete account folder  # noqa 503
   file:
-    path: "{{volume}}"
+    path: "{{ volume }}"
     state: absent
     owner: root
     group: root
-    mode: '0755'
+    mode: 0750
   when: env_file.changed or gen_passwords.changed or force
 
 # See https://github.com/jitsi/docker-jitsi-meet#quick-start
-# `mkdir -p ~/.jitsi-meet-cfg/{web/letsencrypt,transcripts,prosody,jicofo,jvb,jigasi,jibri}`
-- name: create {{item}} folder
+# `mkdir -p ~/.jitsi-meet-cfg/\
+#  {web/letsencrypt,transcripts,prosody,jicofo,jvb,jigasi,jibri}`
+- name: create {{ item }} folder
   file:
-    path: "{{volume}}/{{item}}"
+    path: "{{ volume }}/{{ item }}"
     state: directory
     owner: root
     group: root
-    mode: '0755'
+    mode: 0755
   with_items:
     - web
     - letsencrypt
@@ -26,24 +28,24 @@
 
 - name: create prosody folder
   file:
-    path: "{{volume}}/prosody"
+    path: "{{ volume }}/prosody"
     state: directory
     owner: '101'
     group: root
-    mode: '0700'
+    mode: 0700
 
 - name: create jicofo folder
   file:
-    path: "{{volume}}/jicofo"
+    path: "{{ volume }}/jicofo"
     state: directory
     owner: '999'
     group: '1000'
-    mode: '0700'
+    mode: 0700
 
 - name: create jvb folder
   file:
-    path: "{{volume}}/jvb"
+    path: "{{ volume }}/jvb"
     state: directory
     owner: '999'
     group: '1000'
-    mode: '0755'
+    mode: 0755

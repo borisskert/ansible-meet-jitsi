@@ -1,0 +1,13 @@
+---
+- name: Reload systemd
+  systemd:
+    daemon_reload: true
+
+- name: Restart jitsi meet service
+  service:
+    name: "{{ service_name }}"
+    state: restarted
+  when: not (
+    jitsi_service_start is defined
+    and jitsi_service_start.changed
+    )

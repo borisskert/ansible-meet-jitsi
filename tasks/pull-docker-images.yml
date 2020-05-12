@@ -1,32 +1,32 @@
 ---
 - name: pull jitsi/web image
   docker_image:
-    name: "jitsi/web:{{images_version}}"
+    name: "jitsi/web:{{ images_version }}"
     source: pull
     state: present
-    force_source: "{{force_pull}}"
-  register: web_dockerimage
+    force_source: "{{ force_pull }}"
+  notify: Restart jitsi meet service
 
 - name: pull jitsi/prosody image
   docker_image:
-    name: "jitsi/prosody:{{images_version}}"
+    name: "jitsi/prosody:{{ images_version }}"
     source: pull
     state: present
-    force_source: "{{force_pull}}"
-  register: prosody_dockerimage
+    force_source: "{{ force_pull }}"
+  notify: Restart jitsi meet service
 
 - name: pull jitsi/jicofo image
   docker_image:
-    name: "jitsi/jicofo:{{images_version}}"
+    name: "jitsi/jicofo:{{ images_version }}"
     source: pull
     state: present
-    force_source: "{{force_pull}}"
-  register: jicofo_dockerimage
+    force_source: "{{ force_pull }}"
+  notify: Restart jitsi meet service
 
 - name: pull jitsi/jvb image
   docker_image:
-    name: "jitsi/jvb:{{images_version}}"
+    name: "jitsi/jvb:{{ images_version }}"
     source: pull
     state: present
-    force_source: "{{force_pull}}"
-  register: jvb_dockerimage
+    force_source: "{{ force_pull }}"
+  notify: Restart jitsi meet service

@@ -1,12 +1,12 @@
 ---
 - hosts: test_machine
-  become: yes
+  become: true
 
   roles:
     - role: install-docker
       storage_driver: overlay2
       cleanup_enabled: true
-      install_pip_docker: yes
+      install_pip_docker: true
 
     - role: install-docker-compose
 
@@ -19,11 +19,11 @@
         web_interface: 0.0.0.0
         videobridge_interface: 0.0.0.0
         url: http://192.168.33.10:10080
-      enable_auth: yes
-      allow_guests: yes
+      enable_auth: true
+      allow_guests: true
       users:
         - username: myuser
           password: mypassword
         - username: myuser2
           password: mypassword2
-      force: no
+      force: false
