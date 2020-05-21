@@ -1,0 +1,94 @@
+---
+- name: Verify
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Should template docker-compose file
+      stat:
+        path: /opt/jitsi/docker/compose/docker-compose.yml
+        checksum_algorithm: sha256
+      register: docker_compose_file
+      failed_when: not docker_compose_file.stat.exists
+
+    - name: Should template docker-compose env file
+      stat:
+        path: /opt/jitsi/docker/compose/.env
+      register: docker_compose_env_file
+      failed_when: not docker_compose_env_file.stat.exists
+
+    - name: Should template systemd unit file
+      stat:
+        path: /etc/systemd/system/jitsi.service
+        checksum_algorithm: sha256
+      register: systemd_unit_file
+      failed_when: not systemd_unit_file.stat.exists
+
+    - name: Should create web volume
+      stat:
+        path: /srv/docker/jitsi/web
+      register: web_volume_directory
+      failed_when: not web_volume_directory.stat.exists
+
+    - name: Should create letsencrypt volume
+      stat:
+        path: /srv/docker/jitsi/letsencrypt
+      register: letsencrypt_volume_directory
+      failed_when: not letsencrypt_volume_directory.stat.exists
+
+    - name: Should create transcripts volume
+      stat:
+        path: /srv/docker/jitsi/transcripts
+      register: transcripts_volume_directory
+      failed_when: not transcripts_volume_directory.stat.exists
+
+    - name: Should create jigasi volume
+      stat:
+        path: /srv/docker/jitsi/jigasi
+      register: jigasi_volume_directory
+      failed_when: not jigasi_volume_directory.stat.exists
+
+    - name: Should create jibri volume
+      stat:
+        path: /srv/docker/jitsi/jibri
+      register: jibri_volume_directory
+      failed_when: not jibri_volume_directory.stat.exists
+
+    - name: Should create user password file for user1
+      stat:
+        path: /srv/docker/jitsi/prosody/data/meet%2ejitsi/accounts/myuser.dat
+      register: user_password_file
+      failed_when: not user_password_file.stat.exists
+
+    - name: Should create user password file for user2
+      stat:
+        path: /srv/docker/jitsi/prosody/data/meet%2ejitsi/accounts/myuser2.dat
+      register: user_password_file
+      failed_when: not user_password_file.stat.exists
+
+    - name: Should open 10080/tcp port
+      command: nc -z -w1 localhost 10080
+      changed_when: false
+      register: netcat_10080
+      retries: 300
+      delay: 1
+      until: netcat_10080 is defined
+        and netcat_10080.rc == 0
+
+    - name: Should open videobridge 10000/udp port
+      command: nc -zu -w1 localhost 10000
+      changed_when: false
+      register: netcat_10000
+      retries: 300
+      delay: 1
+      until: netcat_10000 is defined
+        and netcat_10000.rc == 0
+
+    - name: Should open videobridge 4443/tcp port
+      command: nc -z -w1 localhost 4443
+      changed_when: false
+      register: netcat_4443
+      retries: 300
+      delay: 1
+      until: netcat_4443 is defined
+        and netcat_4443.rc == 0

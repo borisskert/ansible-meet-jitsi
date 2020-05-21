@@ -7,14 +7,6 @@
     group: root
     mode: 0750
 
-- name: template user account file
-  template:
-    src: ./account/user.dat.j2
-    dest:
-      "{{ volume }}/prosody/data/meet%2ejitsi/\
-      accounts/{{ item.username | lower | urlencode }}.dat"
-    owner: '101'
-    group: root
-    mode: 0640
+- name: register user
+  include: register-user.yml
   with_items: "{{ users }}"
-  notify: Restart jitsi meet service

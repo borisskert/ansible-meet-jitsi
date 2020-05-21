@@ -1,0 +1,49 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: ./molecule/shared/requirements.yml
+
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+
+platforms:
+  - name: ansible-jitsi-xenial
+    box: ubuntu/xenial64
+    memory: 1024
+    cpus: 2
+  - name: ansible-jitsi-bionic
+    box: ubuntu/bionic64
+    memory: 1024
+    cpus: 2
+  - name: ansible-jitsi-focal
+    box: ubuntu/focal64
+    memory: 1024
+    cpus: 2
+  - name: ansible-jitsi-stretch
+    box: debian/stretch64
+    memory: 1024
+    cpus: 2
+    groups:
+      - debian
+  - name: ansible-jitsi-buster
+    box: debian/buster64
+    memory: 1024
+    cpus: 2
+    groups:
+      - debian
+
+provisioner:
+  name: ansible
+  playbooks:
+    prepare: ../shared/prepare.yml
+    converge: ../shared/converge.yml
+  inventory:
+    group_vars:
+      debian:
+        ansible_python_interpreter: /usr/bin/python3
+
+verifier:
+  name: ansible

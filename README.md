@@ -4,9 +4,13 @@ Installs jitsi via several docker container.
 
 This role bases on [docker-jitsi-meet@github](https://github.com/jitsi/docker-jitsi-meet)
 
-Tested on:
+Supported operating systems:
+
 * Ubuntu 16.04
 * Ubuntu 18.04
+* Ubuntu 20.04
+* Debian 9
+* Debian 10
 
 ## System requirements
 
@@ -101,18 +105,40 @@ Please notice: prosody is saving your passwords in clear text! Be aware using ge
       force: no
 ```
 
-## Test this role
+## Testing
 
 Requirements:
 
-* ansible
-* vagrant
-* VirtualBox
+* [Vagrant](https://www.vagrantup.com/)
+* [VirtualBox](https://www.virtualbox.org/)
+* [Ansible](https://docs.ansible.com/)
+* [Molecule](https://molecule.readthedocs.io/en/latest/index.html)
+* [yamllint](https://yamllint.readthedocs.io/en/stable/#)
+* [ansible-lint](https://docs.ansible.com/ansible-lint/)
+* [Docker](https://docs.docker.com/)
+
+### Run within docker
 
 ```shell script
-$ cd tests
-$ ./test.sh
+molecule test
 ```
+
+### Run within Vagrant
+
+```shell script
+ molecule test --scenario-name vagrant --parallel
+```
+
+I recommend to use [pyenv](https://github.com/pyenv/pyenv) for local testing.
+Within the Github Actions pipeline I use [my own molecule Docker image](https://github.com/borisskert/docker-molecule).
+
+## License
+
+MIT
+
+## Author Information
+
+* [borisskert](https://github.com/borisskert)
 
 ## Links
 

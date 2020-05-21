@@ -1,0 +1,19 @@
+---
+- name: Determine user registration
+  stat:
+    path:
+      "{{ volume }}/prosody/data/meet%2ejitsi/\
+      accounts/{{ item.username | lower | urlencode }}.dat"
+  register: user_password_file
+
+- name: template user account file
+  template:
+    src: ./account/user.dat.j2
+    dest:
+      "{{ volume }}/prosody/data/meet%2ejitsi/\
+      accounts/{{ item.username | lower | urlencode }}.dat"
+    owner: '101'
+    group: root
+    mode: 0640
+  notify: Restart jitsi meet service
+  when: not user_password_file.stat.exists
