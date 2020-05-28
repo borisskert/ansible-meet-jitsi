@@ -7,5 +7,15 @@
 - include: pull-docker-images.yml
 - include: setup-systemd-service.yml
 
-- name: Reload systemd/ restart jitsi meet service immediately
+- name: Reload/restart jitsi meet service immediately
   meta: flush_handlers
+
+- name: Enable/start jitsi meet service (if not started)
+  service:
+    name: "{{ service_name }}"
+    enabled: true
+    state: started
+  when: not (
+    molecule_docker_environment is defined
+    and molecule_docker_environment | bool
+    )

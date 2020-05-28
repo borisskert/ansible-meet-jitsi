@@ -1,21 +1,11 @@
 ---
-- name: Reload systemd
-  systemd:
-    daemon_reload: true
-  when: not (
-    molecule_docker_environment is defined
-    and molecule_docker_environment | bool
-    )
-
 - name: Restart jitsi meet service
-  service:
+  systemd:
     name: "{{ service_name }}"
     state: restarted
+    enabled: true
+    daemon_reload: true
   when: not (
-    jitsi_service_start is defined
-    and jitsi_service_start.changed
-    )
-    and not (
     molecule_docker_environment is defined
     and molecule_docker_environment | bool
     )
