@@ -34,18 +34,18 @@ Supported operating systems:
 
 | Variable      | Type | Mandatory? | Default | Description           |
 |---------------|------|------------|---------|-----------------------|
-| volume        | text | no         | <empty> | Local path to jitsi config and data |
-| publish.web   | text | no         | <empty> | Web Port to be published            |
-| publish.https | text | no         | <empty> | Https Port to be published (but not used) |
-| publish.web_interface | text | no     | 0.0.0.0 | Web interface to be published                 |
-| publish.videobridge_interface | text | no     | 0.0.0.0 | Videobridge interface to be published     |
-| publish.url                   | text | yes    | <empty> | Public url                                |
-| users                         | array of User | yes | [] | User configuration                       |
-| enable_auth                   | boolean | no  | no       | Enables authentication (enabled by default)  |
-| allow_guests                  | boolean | no  | no       | Enables guests (disabled by default)         |
-| force                         | boolean       | no  | no | Force to re-create volumes and configuration |
-| images_version                | text          | no  | latest | Specifies the docker images version      |
-| force_pull                    | boolean       | no  | no     | Forces the re-pull of the docker images  |
+| jitsi_volume        | text | no         | <empty> | Local path to jitsi config and data |
+| jitsi_web_port   | text | no         | <empty> | Web Port to be published            |
+| jitsi_https_port | text | no         | <empty> | Https Port to be published (but not used) |
+| jitsi_web_interface | text | no     | 0.0.0.0 | Web interface to be published                 |
+| jitsi_videobridge_interface | text | no     | 0.0.0.0 | Videobridge interface to be published     |
+| jitsi_external_url                   | text | yes    | <empty> | Public url                                |
+| jitsi_users                         | array of User | yes | [] | User configuration                       |
+| jitsi_enable_auth                   | boolean | no  | no       | Enables authentication (enabled by default)  |
+| jitsi_allow_guests                  | boolean | no  | no       | Enables guests (disabled by default)         |
+| jitsi_force_recreate                         | boolean       | no  | no | Force to re-create volumes and configuration |
+| jitsi_images_version                | text          | no  | latest | Specifies the docker images version      |
+| jitsi_force_pull                    | boolean       | no  | no     | Forces the re-pull of the docker images  |
 
 ### User type definition
 
@@ -74,35 +74,31 @@ Please notice: prosody is saving your passwords in clear text! Be aware using ge
 
   roles:
     - role: install-jitsi
-      volume: /srv/docker/jitsi
-      publish:
-        web: 10080
-        https: 10443
-        web_interface: 0.0.0.0
-        videobridge_interface: 0.0.0.0
-        url: http://192.168.33.10:10080
+      jitsi_volume: /srv/docker/jitsi
+      jitsi_web_port: 10080
+      jitsi_https_port: 10443
+      jitsi_external_url: http://192.168.33.10:10080
 ```
 
 ### Typical `playbook.yml`
 
 ```yaml
     - role: install-jitsi
-      volume: /srv/docker/jitsi
-      images_version: stable-4548-1
-      publish:
-        web: 10080
-        https: 10443
-        web_interface: "{{docker_network_interface}}"
-        videobridge_interface: 0.0.0.0
-        url: https://meet.my.jitsi
-      enable_auth: yes
-      allow_guests: no
-      users:
+      jitsi_volume: /srv/docker/jitsi
+      jitsi_images_version: stable-4548-1
+      jitsi_web_port: 10080
+      jitsi_https_port: 10443
+      jitsi_web_interface: 0.0.0.0
+      jitsi_videobridge_interface: 0.0.0.0
+      jitsi_external_url: http://localhost:10080
+      jitsi_enable_auth: true
+      jitsi_allow_guests: true
+      jitsi_users:
         - username: myuser
           password: mypassword
         - username: myuser2
           password: mypassword2
-      force: no
+      jitsi_force_recreate: false
 ```
 
 ## Testing

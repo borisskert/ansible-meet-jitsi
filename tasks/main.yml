@@ -12,7 +12,7 @@
 
 - name: Enable/start jitsi meet service (if not started)
   service:
-    name: "{{ service_name }}"
+    name: "{{ jitsi_service_name }}"
     enabled: true
     state: started
   when: not (

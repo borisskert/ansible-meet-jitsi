@@ -1,7 +1,7 @@
 ---
 - name: create account folder
   file:
-    path: "{{ volume }}/prosody/data/meet%2ejitsi/accounts"
+    path: "{{ jitsi_volume }}/prosody/data/meet%2ejitsi/accounts"
     state: directory
     owner: '101'
     group: root
@@ -9,4 +9,4 @@
 
 - name: register user
   include: register-user.yml
-  with_items: "{{ users }}"
+  with_items: "{{ jitsi_users }}"

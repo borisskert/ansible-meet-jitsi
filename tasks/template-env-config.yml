@@ -2,7 +2,7 @@
 - name: Copy gen_password.sh script
   copy:
     src: files/gen_passwords.sh
-    dest: "{{ docker_compose.path }}/gen_passwords.sh"
+    dest: "{{ jitsi_docker_compose_working_directory }}/gen_passwords.sh"
     owner: root
     group: root
     mode: 0755
@@ -11,7 +11,7 @@
 - name: create env template
   template:
     src: ./.env.j2
-    dest: "{{ docker_compose.path }}/.env-template"
+    dest: "{{ jitsi_docker_compose_working_directory }}/.env-template"
     owner: root
     group: root
     mode: 0640
@@ -19,14 +19,14 @@
 
 - name: Check if env file exists
   stat:
-    path: "{{ docker_compose.path }}/.env"
+    path: "{{ jitsi_docker_compose_working_directory }}/.env"
   register: env_file_result
 
 - name: create env file  # noqa 503
   copy:
-    src: "{{ docker_compose.path }}/.env-template"
+    src: "{{ jitsi_docker_compose_working_directory }}/.env-template"
     remote_src: true
-    dest: "{{ docker_compose.path }}/.env"
+    dest: "{{ jitsi_docker_compose_working_directory }}/.env"
     owner: root
     group: root
     mode: 0640
@@ -35,8 +35,8 @@
   notify: Restart jitsi meet service
 
 - name: Generate passwords  # noqa 503
-  command: "{{ docker_compose.path }}/gen_passwords.sh"
+  command: "{{ jitsi_docker_compose_working_directory }}/gen_passwords.sh"
   args:
-    chdir: "{{ docker_compose.path }}/"
+    chdir: "{{ jitsi_docker_compose_working_directory }}/"
   when: env_file.changed or gen_passwords_script.changed
   register: gen_passwords

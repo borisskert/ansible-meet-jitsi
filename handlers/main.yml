@@ -1,7 +1,7 @@
 ---
 - name: Restart jitsi meet service
   systemd:
-    name: "{{ service_name }}"
+    name: "{{ jitsi_service_name }}"
     state: restarted
     enabled: true
     daemon_reload: true

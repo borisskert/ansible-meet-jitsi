@@ -5,10 +5,10 @@ version: '3'
 services:
     # Frontend
     web:
-        image: jitsi/web:{{images_version}}
+        image: jitsi/web:{{jitsi_images_version}}
         ports:
-            - '{{publish.web_interface}}:${HTTP_PORT}:80'
-            - '{{publish.web_interface}}:${HTTPS_PORT}:443'
+            - '{{jitsi_web_interface}}:${HTTP_PORT}:80'
+            - '{{jitsi_web_interface}}:${HTTPS_PORT}:443'
         volumes:
             - ${CONFIG}/web:/config
             - ${CONFIG}/web/letsencrypt:/etc/letsencrypt
@@ -46,7 +46,7 @@ services:
 
     # XMPP server
     prosody:
-        image: jitsi/prosody:{{images_version}}
+        image: jitsi/prosody:{{jitsi_images_version}}
         expose:
             - '5222'
             - '5347'
@@ -109,7 +109,7 @@ services:
 
     # Focus component
     jicofo:
-        image: jitsi/jicofo:{{images_version}}
+        image: jitsi/jicofo:{{jitsi_images_version}}
         volumes:
             - ${CONFIG}/jicofo:/config
         environment:
@@ -135,10 +135,10 @@ services:
 
     # Video bridge
     jvb:
-        image: jitsi/jvb:{{images_version}}
+        image: jitsi/jvb:{{jitsi_images_version}}
         ports:
-            - '{{publish.videobridge_interface}}:${JVB_PORT}:${JVB_PORT}/udp'
-            - '{{publish.videobridge_interface}}:${JVB_TCP_PORT}:${JVB_TCP_PORT}'
+            - '{{jitsi_videobridge_interface}}:${JVB_PORT}:${JVB_PORT}/udp'
+            - '{{jitsi_videobridge_interface}}:${JVB_TCP_PORT}:${JVB_TCP_PORT}'
         volumes:
             - ${CONFIG}/jvb:/config
         environment:

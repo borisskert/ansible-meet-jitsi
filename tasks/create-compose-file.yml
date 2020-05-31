@@ -1,7 +1,7 @@
 ---
 - name: create dockercompose directory
   file:
-    path: "{{ docker_compose.path }}"
+    path: "{{ jitsi_docker_compose_working_directory }}"
     state: directory
     owner: root
     group: root
@@ -10,7 +10,9 @@
 - name: template docker-compose file
   template:
     src: docker-compose.yml.j2
-    dest: "{{ docker_compose.path }}/{{ docker_compose.filename }}"
+    dest:
+      "{{ jitsi_docker_compose_working_directory }}/\
+      {{ jitsi_docker_compose_filename }}"
     owner: root
     group: root
     mode: 0644

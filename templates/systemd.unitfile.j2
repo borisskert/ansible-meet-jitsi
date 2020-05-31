@@ -2,29 +2,29 @@
 WantedBy = multi-user.target
 
 [Unit]
-Description = {{service_name}} service
+Description = {{jitsi_service_name}} service
 After       = docker.service
 Requires    = docker.service
 
 [Service]
-ExecStartPre=-{{docker.compose_executible}} --project-directory {{docker_compose.path}} \
-                               --file {{docker_compose.path}}/{{docker_compose.filename}} \
-                               --project-name {{service_name}} \
+ExecStartPre=-{{docker_compose_executible}} --project-directory {{jitsi_docker_compose_working_directory}} \
+                               --file {{jitsi_docker_compose_working_directory}}/{{jitsi_docker_compose_filename}} \
+                               --project-name {{jitsi_service_name}} \
                                down --remove-orphans
 
-ExecStartPre={{docker.compose_executible}} --project-directory {{docker_compose.path}} \
-                            --file {{docker_compose.path}}/{{docker_compose.filename}} \
-                            --project-name {{service_name}} \
+ExecStartPre={{docker_compose_executible}} --project-directory {{jitsi_docker_compose_working_directory}} \
+                            --file {{jitsi_docker_compose_working_directory}}/{{jitsi_docker_compose_filename}} \
+                            --project-name {{jitsi_service_name}} \
                             pull
 
-ExecStart={{docker.compose_executible}} --project-directory {{docker_compose.path}} \
-                           --file {{docker_compose.path}}/{{docker_compose.filename}} \
-                           --project-name {{service_name}} \
+ExecStart={{docker_compose_executible}} --project-directory {{jitsi_docker_compose_working_directory}} \
+                           --file {{jitsi_docker_compose_working_directory}}/{{jitsi_docker_compose_filename}} \
+                           --project-name {{jitsi_service_name}} \
                            up
 
-ExecStop=-{{docker.compose_executible}} --project-directory {{docker_compose.path}} \
-                                            --file {{docker_compose.path}}/{{docker_compose.filename}} \
-                                            --project-name {{service_name}} \
+ExecStop=-{{docker_compose_executible}} --project-directory {{jitsi_docker_compose_working_directory}} \
+                                            --file {{jitsi_docker_compose_working_directory}}/{{jitsi_docker_compose_filename}} \
+                                            --project-name {{jitsi_service_name}} \
                                             down --remove-orphans
 
 Restart = always

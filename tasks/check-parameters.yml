@@ -1,58 +1,58 @@
 ---
-- name: check 'volume' parameter
+- name: check 'jitsi_volume' parameter
   assert:
     that:
-      - "volume is defined"
-      - "volume | length > 0"
-    fail_msg: "parameter 'volume' incorrect or missing"
+      - "jitsi_volume is defined"
+      - "jitsi_volume | length > 0"
+    fail_msg: "parameter 'jitsi_volume' incorrect or missing"
 
-- name: check 'publish.web' parameter
+- name: check 'jitsi_web_port' parameter
   assert:
     that:
-      - "publish.web is defined"
-      - "publish.web | string | length > 0"
-    fail_msg: "parameter 'publish.web' incorrect or missing"
+      - "jitsi_web_port is defined"
+      - "jitsi_web_port | string | length > 0"
+    fail_msg: "parameter 'jitsi_web_port' incorrect or missing"
 
-- name: check 'publish.https' parameter
+- name: check 'jitsi_https_port' parameter
   assert:
     that:
-      - "publish.https is defined"
-      - "publish.https | string | length > 0"
-    fail_msg: "parameter 'publish.https' incorrect or missing"
+      - "jitsi_https_port is defined"
+      - "jitsi_https_port | string | length > 0"
+    fail_msg: "parameter 'jitsi_https_port' incorrect or missing"
 
-- name: check 'publish.web_interface' parameter
+- name: check 'jitsi_web_interface' parameter
   assert:
     that:
-      - "publish.web_interface is defined"
-      - "publish.web_interface | length > 0"
-    fail_msg: "parameter 'publish.web_interface' incorrect or missing"
+      - "jitsi_web_interface is defined"
+      - "jitsi_web_interface | length > 0"
+    fail_msg: "parameter 'jitsi_web_interface' incorrect or missing"
 
-- name: check 'publish.videobridge_interface' parameter
+- name: check 'jitsi_videobridge_interface' parameter
   assert:
     that:
-      - "publish.videobridge_interface is defined"
-      - "publish.videobridge_interface | length > 0"
-    fail_msg: "parameter 'publish.videobridge_interface' incorrect or missing"
+      - "jitsi_videobridge_interface is defined"
+      - "jitsi_videobridge_interface | length > 0"
+    fail_msg: "parameter 'jitsi_videobridge_interface' incorrect or missing"
 
-- name: check 'publish.url' parameter
+- name: check 'jitsi_external_url' parameter
   assert:
     that:
-      - "publish.url is defined"
-      - "publish.url | length > 0"
-    fail_msg: "parameter 'publish.url' incorrect or missing"
+      - "jitsi_external_url is defined"
+      - "jitsi_external_url | length > 0"
+    fail_msg: "parameter 'jitsi_external_url' incorrect or missing"
 
-- name: check 'users' parameter
+- name: check 'jitsi_users' parameter
   assert:
     that:
-      - "users is defined"
-    fail_msg: "parameter 'users' is empty"
+      - "jitsi_users is defined"
+    fail_msg: "parameter 'jitsi_users' is empty"
 
-- name: check user structure in 'users' parameter
+- name: check user structure in 'jitsi_users' parameter
   assert:
     that:
       - "item.username is defined"
       - "item.username | length > 0"
       - "item.password is defined"
       - "item.password | length > 0"
-    fail_msg: "item in the parameter 'users' is invalid"
-  with_items: "{{ users }}"
+    fail_msg: "item in the parameter 'jitsi_users' is invalid"
+  with_items: "{{ jitsi_users }}"

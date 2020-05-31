@@ -5,19 +5,18 @@
 
   roles:
     - role: ansible-meet-jitsi
-      volume: /srv/docker/jitsi
-      images_version: stable-4548-1
-      publish:
-        web: 10080
-        https: 10443
-        web_interface: 0.0.0.0
-        videobridge_interface: 0.0.0.0
-        url: http://localhost:10080
-      enable_auth: true
-      allow_guests: true
-      users:
+      jitsi_volume: /srv/docker/jitsi
+      jitsi_images_version: stable-4548-1
+      jitsi_web_port: 10080
+      jitsi_https_port: 10443
+      jitsi_web_interface: 0.0.0.0
+      jitsi_videobridge_interface: 0.0.0.0
+      jitsi_external_url: http://localhost:10080
+      jitsi_enable_auth: true
+      jitsi_allow_guests: true
+      jitsi_users:
         - username: myuser
           password: mypassword
         - username: myuser2
           password: mypassword2
-      force: false
+      jitsi_force_recreate: false
