@@ -6,7 +6,7 @@
   roles:
     - role: ansible-meet-jitsi
       jitsi_volume: /srv/docker/jitsi
-      jitsi_images_version: stable-4548-1
+      jitsi_images_version: stable-5142-3
       jitsi_web_port: 10080
       jitsi_https_port: 10443
       jitsi_web_interface: 0.0.0.0
