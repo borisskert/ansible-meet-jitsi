@@ -18,7 +18,12 @@ jobs:
         with:
           path: "${{ github.repository }}"
 
-      - name: lint and test with molecule
-        uses: borisskert/molecule-action@v0.1
+      - name: test default scenario
+        uses: borisskert/molecule-action@v20.11.28
         with:
           arguments: test
+
+      - name: test 'all-parameters' scenario
+        uses: borisskert/molecule-action@v20.11.28
+        with:
+          arguments: test -s docker-all-parameters

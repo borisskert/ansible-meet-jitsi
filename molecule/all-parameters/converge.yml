@@ -5,12 +5,12 @@
 
   roles:
     - role: ansible-meet-jitsi
-      jitsi_volume: /srv/docker/jitsi
+      jitsi_volume: /srv/my_jitsi
       jitsi_images_version: stable-5142-3
       jitsi_web_port: 10080
       jitsi_https_port: 10443
-      jitsi_web_interface: 0.0.0.0
-      jitsi_videobridge_interface: 0.0.0.0
+      jitsi_web_interface: 127.0.0.1
+      jitsi_videobridge_interface: 127.0.0.1
       jitsi_external_url: http://localhost:10080
       jitsi_enable_auth: true
       jitsi_allow_guests: true
@@ -20,3 +20,4 @@
         - username: myuser2
           password: mypassword2
       jitsi_force_recreate: false
+      jitsi_tz: Europe/Berlin

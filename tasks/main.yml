@@ -1,10 +1,8 @@
 ---
-- include: check-parameters.yml
 - include: create-compose-file.yml
 - include: template-env-config.yml
 - include: create-volume-directories.yml
 - include: register-users.yml
-- include: pull-docker-images.yml
 - include: setup-systemd-service.yml
 
 - name: Reload/restart jitsi meet service immediately

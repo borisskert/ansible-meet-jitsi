@@ -1,13 +1,13 @@
 ---
-jitsi_volume: ''
+jitsi_volume: /srv/jitsi
 
 jitsi_web_interface: 0.0.0.0
 jitsi_videobridge_interface: 0.0.0.0
-jitsi_web_port: ''
-jitsi_https_port: ''
+jitsi_web_port: 8000
+jitsi_https_port: 8443
 jitsi_external_url: ''
 
-jitsi_tz: Europe/Berlin
+jitsi_tz: UTC
 
 jitsi_users: []
 

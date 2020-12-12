@@ -17,11 +17,11 @@
           services:
             # Frontend
             web:
-              image: jitsi/web:latest
+              image: jitsi/web:stable-5142-3
               restart: ${RESTART_POLICY}
               ports:
-                - '0.0.0.0:${HTTP_PORT}:80'
-                - '0.0.0.0:${HTTPS_PORT}:443'
+                - '127.0.0.1:${HTTP_PORT}:80'
+                - '127.0.0.1:${HTTPS_PORT}:443'
               volumes:
                 - ${CONFIG}/web:/config:Z
                 - ${CONFIG}/transcripts:/usr/share/jitsi-meet/transcripts:Z
@@ -112,7 +112,7 @@
 
             # XMPP server
             prosody:
-              image: jitsi/prosody:latest
+              image: jitsi/prosody:stable-5142-3
               restart: ${RESTART_POLICY}
               expose:
                 - '5222'
@@ -181,7 +181,7 @@
 
             # Focus component
             jicofo:
-              image: jitsi/jicofo:latest
+              image: jitsi/jicofo:stable-5142-3
               restart: ${RESTART_POLICY}
               volumes:
                 - ${CONFIG}/jicofo:/config:Z
@@ -210,11 +210,11 @@
 
             # Video bridge
             jvb:
-              image: jitsi/jvb:latest
+              image: jitsi/jvb:stable-5142-3
               restart: ${RESTART_POLICY}
               ports:
-                - '0.0.0.0:${JVB_PORT}:${JVB_PORT}/udp'
-                - '0.0.0.0:${JVB_TCP_PORT}:${JVB_TCP_PORT}'
+                - '127.0.0.1:${JVB_PORT}:${JVB_PORT}/udp'
+                - '127.0.0.1:${JVB_TCP_PORT}:${JVB_TCP_PORT}'
               volumes:
                 - ${CONFIG}/jvb:/config:Z
               environment:
@@ -290,19 +290,19 @@
           #
 
           # Directory where all configuration will be stored
-          CONFIG=/srv/jitsi
+          CONFIG=/srv/my_jitsi
 
           # Exposed HTTP port
-          HTTP_PORT=8000
+          HTTP_PORT=10080
 
           # Exposed HTTPS port
-          HTTPS_PORT=8443
+          HTTPS_PORT=10443
 
           # System time zone
-          TZ=UTC
+          TZ=Europe/Berlin
 
           # Public URL for the web service
-          #PUBLIC_URL=https://meet.example.com
+          PUBLIC_URL=http://localhost:10080
 
           # IP address of the Docker host
           # See the "Running behind NAT or on a LAN environment" section in the Handbook:
@@ -379,10 +379,10 @@
           #
 
           # Enable authentication
-          ENABLE_AUTH=0
+          ENABLE_AUTH=1
 
           # Enable guest access
-          ENABLE_GUESTS=0
+          ENABLE_GUESTS=1
 
           # Select authentication type: internal, jwt or ldap
           AUTH_TYPE=internal
@@ -635,55 +635,67 @@
 
     - name: Should create web volume
       stat:
-        path: /srv/jitsi/web
+        path: /srv/my_jitsi/web
       register: web_volume_directory
       failed_when: not web_volume_directory.stat.exists
 
     - name: Should create letsencrypt volume
       stat:
-        path: /srv/jitsi/letsencrypt
+        path: /srv/my_jitsi/letsencrypt
       register: letsencrypt_volume_directory
       failed_when: not letsencrypt_volume_directory.stat.exists
 
     - name: Should create transcripts volume
       stat:
-        path: /srv/jitsi/transcripts
+        path: /srv/my_jitsi/transcripts
       register: transcripts_volume_directory
       failed_when: not transcripts_volume_directory.stat.exists
 
     - name: Should create jigasi volume
       stat:
-        path: /srv/jitsi/jigasi
+        path: /srv/my_jitsi/jigasi
       register: jigasi_volume_directory
       failed_when: not jigasi_volume_directory.stat.exists
 
     - name: Should create jibri volume
       stat:
-        path: /srv/jitsi/jibri
+        path: /srv/my_jitsi/jibri
       register: jibri_volume_directory
       failed_when: not jibri_volume_directory.stat.exists
 
-    - name: Should open 8000/tcp port
-      command: nc -z -w1 localhost 8000
+    - name: Should create user password file for user1
+      stat:
+        path: /srv/my_jitsi/prosody/data/meet%2ejitsi/accounts/myuser.dat
+      register: user_password_file
+      failed_when: not user_password_file.stat.exists
+
+    - name: Should create user password file for user2
+      stat:
+        path: /srv/my_jitsi/prosody/data/meet%2ejitsi/accounts/myuser2.dat
+      register: user_password_file
+      failed_when: not user_password_file.stat.exists
+
+    - name: Should open 10080/tcp port
+      command: nc -z -w1 localhost 10080
       changed_when: false
-      register: netcat_8000
+      register: netcat_10080
       retries: 300
       delay: 1
-      until: netcat_8000 is defined
-        and netcat_8000.rc == 0
+      until: netcat_10080 is defined
+        and netcat_10080.rc == 0
       when: not (
         molecule_docker_environment is defined
         and molecule_docker_environment | bool
         )
 
-    - name: Should open 8443/tcp port
-      command: nc -z -w1 localhost 8443
+    - name: Should open 10443/tcp port
+      command: nc -z -w1 localhost 10443
       changed_when: false
-      register: netcat_8443
+      register: netcat_10443
       retries: 300
       delay: 1
-      until: netcat_8443 is defined
-        and netcat_8443.rc == 0
+      until: netcat_10443 is defined
+        and netcat_10443.rc == 0
       when: not (
         molecule_docker_environment is defined
         and molecule_docker_environment | bool
