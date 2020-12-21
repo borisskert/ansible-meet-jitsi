@@ -12,7 +12,7 @@
 # See https://github.com/jitsi/docker-jitsi-meet#quick-start
 # `mkdir -p ~/.jitsi-meet-cfg/\
 #  {web/letsencrypt,transcripts,prosody,jicofo,jvb,jigasi,jibri}`
-- name: create {{ item }} folder
+- name: create folder
   file:
     path: "{{ jitsi_volume }}/{{ item }}"
     state: directory

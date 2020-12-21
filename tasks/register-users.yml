@@ -1,7 +1,7 @@
 ---
 - name: create account folder
   file:
-    path: "{{ jitsi_volume }}/prosody/data/meet%2ejitsi/accounts"
+    path: "{{ jitsi_volume }}/prosody/config/data/meet%2ejitsi/accounts"
     state: directory
     owner: '101'
     group: root

@@ -665,13 +665,13 @@
 
     - name: Should create user password file for user1
       stat:
-        path: /srv/my_jitsi/prosody/data/meet%2ejitsi/accounts/myuser.dat
+        path: /srv/my_jitsi/prosody/config/data/meet%2ejitsi/accounts/myuser.dat
       register: user_password_file
       failed_when: not user_password_file.stat.exists
 
     - name: Should create user password file for user2
       stat:
-        path: /srv/my_jitsi/prosody/data/meet%2ejitsi/accounts/myuser2.dat
+        path: /srv/my_jitsi/prosody/config/data/meet%2ejitsi/accounts/myuser2.dat
       register: user_password_file
       failed_when: not user_password_file.stat.exists
 
