@@ -39,7 +39,8 @@ Supported operating systems:
 | jitsi_https_port | text | no         | <empty> | Https Port to be published (but not used) |
 | jitsi_web_interface | text | no     | 0.0.0.0 | Web interface to be published                 |
 | jitsi_videobridge_interface | text | no     | 0.0.0.0 | Videobridge interface to be published     |
-| jitsi_external_url                   | text | yes    | <empty> | Public url                                |
+| jitsi_external_url                  | text | yes    | <empty> | Public url                                |
+| jitsi_docker_host_address           | IP address | no |  | Specifies the `DOCKER_HOST_ADDRESS` parameter. |
 | jitsi_users                         | array of User | yes | [] | User configuration                       |
 | jitsi_enable_auth                   | boolean | no  | no       | Enables authentication (enabled by default)  |
 | jitsi_allow_guests                  | boolean | no  | no       | Enables guests (disabled by default)         |
@@ -91,6 +92,7 @@ Please notice: prosody is saving your passwords in clear text! Be aware using ge
       jitsi_web_interface: 0.0.0.0
       jitsi_videobridge_interface: 0.0.0.0
       jitsi_external_url: http://localhost:10080
+      jitsi_docker_host_address: 172.17.0.1
       jitsi_enable_auth: true
       jitsi_allow_guests: true
       jitsi_users:

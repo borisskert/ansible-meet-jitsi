@@ -11,6 +11,7 @@
       jitsi_https_port: 10443
       jitsi_web_interface: 127.0.0.1
       jitsi_videobridge_interface: 127.0.0.1
+      jitsi_docker_host_address: 192.168.33.87
       jitsi_external_url: http://localhost:10080
       jitsi_enable_auth: true
       jitsi_allow_guests: true
