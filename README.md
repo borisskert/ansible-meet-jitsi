@@ -119,12 +119,14 @@ Requirements:
 
 ```shell script
 molecule test
+molecule test --scenario-name all-parameters
 ```
 
 ### Run within Vagrant
 
 ```shell script
- molecule test --scenario-name vagrant --parallel
+molecule test --scenario-name vagrant
+molecule test --scenario-name vagrant-all-parameters
 ```
 
 I recommend to use [pyenv](https://github.com/pyenv/pyenv) for local testing.

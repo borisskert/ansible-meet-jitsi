@@ -19,11 +19,11 @@ jobs:
           path: "${{ github.repository }}"
 
       - name: test default scenario
-        uses: borisskert/molecule-action@v20.11.28
+        uses: borisskert/molecule-action@v20.12.20
         with:
           arguments: test
 
       - name: test 'all-parameters' scenario
-        uses: borisskert/molecule-action@v20.11.28
+        uses: borisskert/molecule-action@v20.12.20
         with:
-          arguments: test -s docker-all-parameters
+          arguments: test -s all-parameters
